@@ -1,95 +1,39 @@
 import Image from 'next/image'
 import styles from './page.module.css'
+import Link from 'next/link'
+import Tooltip from '@/components/Tooltip'
 
 export default function Home() {
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
+    <div className={styles.container}>
+      <main className={styles.main}>
+        <h1 className={styles.title}>Events</h1>
+        <p> {/* agregar images/iconos de cosas usadas con tooltip en vez de texto */}
+          Welcome to this Fullstack application about Events. This project is still being updated and improved, but for now you can register 
+          a new user, login, logout, create events, edit events, delete events, and view events. Some routes are protected (create/edit/delete), 
+          so you need to be logged in to try them. If you do not want to register a new user, you can use the following credentials to login:
         </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+        <p>
+          Email: <strong><span>test1@emai.com</span></strong><br/><br/>
+          Password: <strong><span>test1@emai.com</span></strong>
+        </p>
+        <p>Backend / API Technologies used:</p>
+        <div className={styles.techsGroup}>
+          <Tooltip tooltip="Go (golang)"> 
+            <div className={styles.techIcon}>
+              <Image src="/images/go.png" alt="Go(golang)" width={110} height={40} /> 
+            </div>
+          </Tooltip>
+          <Tooltip tooltip="Gin (framework)"> <Image src="/images/go.png" alt="Gin(framework)" width={110} height={40} /> </Tooltip>
+          <Tooltip tooltip="Docker"> <Image src="/images/docker.png" alt="Docker" width={100} height={100} /> </Tooltip>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        <p>You can also check the API documentation to see the avaialble endpoints.</p>
+        <a href="https://documenter.getpostman.com/view/21525358/2s9YsJBCmD" target='_blank' rel='noopener'>Click here for API Documentation</a>
+        <Link href="/events">
+          <p>Click here to Get started</p>
+        </Link>
+      </main>
+    </div>
   )
 }
