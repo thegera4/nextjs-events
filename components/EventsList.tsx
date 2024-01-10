@@ -1,12 +1,22 @@
-import type { InferGetStaticPropsType, GetStaticProps } from "next"
-import { getStaticProps } from "next/dist/build/templates/pages"
+"use client";
+import { useState, useEffect } from "react";
+import { getAllEvents } from "@/utils/api-utils";
 import { Event } from "@/types"
 
-export default function EventsList({events}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function EventsList() {
+
+    const [events, setEvents] = useState<Event[]>([]);
+
+    useEffect(() => {
+        getAllEvents()
+        .then((events) => setEvents(events))
+        .catch((error) => console.error(error))
+    }, [])
+
     return (
         <div>
-            {   
-                events?.map((event: Event) => (
+            { 
+                events.map((event: Event) => (
                     <div key={event.ID}>
                         <h2>{event.Title}</h2>
                         <p>{event.Description}</p>
@@ -16,4 +26,3 @@ export default function EventsList({events}: InferGetStaticPropsType<typeof getS
         </div>
     )
 }
-
