@@ -2,6 +2,9 @@ import Link from 'next/link'
 import classes from './MainHeader.module.css'
 
 export default function MainHeader() {
+
+  const userIsLoggedIn: boolean = false
+
   return (
     <header className={classes.header}>
       <div className={classes.container}>
@@ -13,8 +16,8 @@ export default function MainHeader() {
             <li>
               <Link href='/events'>All Events</Link>
             </li>
-            {/*
-              session ? (
+            {
+              userIsLoggedIn ? (
                 <li>
                   <Link href='/create-event'>Create Event</Link>
                 </li>
@@ -23,7 +26,7 @@ export default function MainHeader() {
                   <Link href='/login'>Login</Link>
                 </li>
               )
-            */}
+            }
             {/*
               session && 
               <li>

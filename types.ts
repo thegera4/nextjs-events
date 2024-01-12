@@ -9,3 +9,8 @@ export type Event = {
     DateTime: string;
     UserId: number;
 }
+
+export type UserCredentials = {
+    email: string;
+    password: string;
+}

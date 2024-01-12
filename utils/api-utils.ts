@@ -5,3 +5,17 @@ export async function getAllEvents() {
     }
     return response.json();
 }
+
+export async function login(email: string, password: string) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    if (!response.ok) {
+        throw new Error("Login failed.");
+    }
+    return response.json();
+}
