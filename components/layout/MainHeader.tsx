@@ -1,9 +1,15 @@
 import Link from 'next/link'
 import classes from './MainHeader.module.css'
+import Button from '../ui/Button'
+import { cookies } from 'next/headers'
 
 export default function MainHeader() {
 
-  const userIsLoggedIn: boolean = false
+  let userIsLoggedIn: boolean = false
+
+  if(cookies().get('token')){
+    userIsLoggedIn = true
+  }
 
   return (
     <header className={classes.header}>
@@ -27,12 +33,12 @@ export default function MainHeader() {
                 </li>
               )
             }
-            {/*
-              session && 
+            {
+              userIsLoggedIn && 
               <li>
-                <Button onClick={logoutHandler}>Logout</Button>
+                <Button /*onClick={logoutHandler}*/>Logout</Button>
               </li>
-            */} 
+            } 
           </ul>
         </nav>
       </div>

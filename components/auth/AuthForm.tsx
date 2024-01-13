@@ -3,8 +3,7 @@ import {useState} from 'react'
 import {useRouter} from 'next/navigation'
 import Button from '../../components/ui/Button'
 import classes from './AuthForm.module.css'
-import { login } from '@/utils/api-utils';
-import { UserCredentials } from '@/types'
+import { TokenResponse, UserCredentials } from '@/types'
 
 /*
 {
@@ -13,10 +12,11 @@ import { UserCredentials } from '@/types'
 }
 */
 
-export default function AuthForm() {
+export default function AuthForm({submitHandler, result}: 
+    {submitHandler: (userCredentials: UserCredentials) => Promise<TokenResponse>; result: TokenResponse}, ) {
     
     const [isLogin, setIsLogin] = useState<boolean>(true);
-   
+    const [loading, setLoading] = useState<boolean>(false);
     const [userCredentials, setUserCredentials] = useState<UserCredentials>({
         email: '',
         password: ''
@@ -35,13 +35,21 @@ export default function AuthForm() {
   
     const switchAuthModeHandler = () => setIsLogin((prevState) => !prevState)
 
-    async function submitHandler (userCredentials: UserCredentials) {
-        const result = await login(userCredentials.email, userCredentials.password);
-        console.log(result);
-        const token = result.token;
-        document.cookie = `token=${token}; path=/; max-age=3600;`;
-        router.replace('/events');
+    const onClickHandler = async () => {
+        setLoading(true);
+        let tokenResponse: TokenResponse = await submitHandler(userCredentials);
+        if(tokenResponse.token){
+            router.push('/events');
+        } else {
+            //si no hay token, muestra mensaje de error
+            //notificationCtx.showNotification({
+            //    title: 'Error',
+            //    message: 'Could not login user.',
+            //    status: 'error'
+            //})
+        }
     }
+
 
     const title = isLogin ? 'Login' : 'Sign Up';
 
@@ -51,6 +59,8 @@ export default function AuthForm() {
     const buttonText = isLogin ? 'Login' : 'Create Account'
     
     const authMode = isLogin ? 'Create new account' : 'Login with existing account'
+
+    if (loading) return <p>Loading...</p> //TODO: replace with spinner component
 
   return (
     <section className={classes.auth}>
@@ -68,7 +78,7 @@ export default function AuthForm() {
                 <input type='password' id='password' required onChange={handleChange}/>
             </div>
             <div className={classes.actions}>
-                <Button onClick={()=>submitHandler(userCredentials)}>{buttonText}</Button>
+                <Button onClick={onClickHandler}>{buttonText}</Button>
                 <button type='button' className={classes.toggle} onClick={switchAuthModeHandler}>{authMode}</button>
             </div>
         </form>

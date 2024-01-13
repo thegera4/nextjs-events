@@ -14,3 +14,8 @@ export type UserCredentials = {
     email: string;
     password: string;
 }
+
+export type TokenResponse = {
+    message: string;
+    token: string;
+}
