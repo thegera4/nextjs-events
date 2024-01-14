@@ -10,12 +10,13 @@ export type Event = {
     UserId: number;
 }
 
-export type UserCredentials = {
-    email: string;
-    password: string;
-}
-
 export type TokenResponse = {
     message: string;
     token: string;
+}
+
+export type NotificationData = {
+    title: string;
+    message: string;
+    status: string;
 }

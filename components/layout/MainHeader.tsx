@@ -11,6 +11,7 @@ export default function MainHeader() {
     userIsLoggedIn = true
   }
 
+
   return (
     <header className={classes.header}>
       <div className={classes.container}>

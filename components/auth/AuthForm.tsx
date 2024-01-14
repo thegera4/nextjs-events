@@ -1,9 +1,12 @@
 "use client";
-import {useState} from 'react'
+import {useState, useRef} from 'react'
 import {useRouter} from 'next/navigation'
 import Button from '../../components/ui/Button'
 import classes from './AuthForm.module.css'
-import { TokenResponse, UserCredentials } from '@/types'
+import { TokenResponse } from '@/types'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Spinner from '../ui/Spinner';
 
 /*
 {
@@ -13,43 +16,28 @@ import { TokenResponse, UserCredentials } from '@/types'
 */
 
 export default function AuthForm({submitHandler, result}: 
-    {submitHandler: (userCredentials: UserCredentials) => Promise<TokenResponse>; result: TokenResponse}, ) {
+    {submitHandler: (emailRef: string, passwordRef: string) => Promise<TokenResponse>, result: TokenResponse}) {
     
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
-    const [userCredentials, setUserCredentials] = useState<UserCredentials>({
-        email: '',
-        password: ''
-    })
-  
-    //const notificationCtx = useContext(NotificationContext);
+    const emailRef = useRef<HTMLInputElement>(null)
+    const passwordRef = useRef<HTMLInputElement>(null)
     
     const router = useRouter();
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUserCredentials({
-            ...userCredentials,
-            [e.target.id]: e.target.value
-        })
-    }
   
     const switchAuthModeHandler = () => setIsLogin((prevState) => !prevState)
 
     const onClickHandler = async () => {
         setLoading(true);
-        let tokenResponse: TokenResponse = await submitHandler(userCredentials);
-        if(tokenResponse.token){
+        try{
+            await submitHandler(emailRef.current?.value!, passwordRef.current?.value!);
+            toast.success("Login successful!");
             router.push('/events');
-        } else {
-            //si no hay token, muestra mensaje de error
-            //notificationCtx.showNotification({
-            //    title: 'Error',
-            //    message: 'Could not login user.',
-            //    status: 'error'
-            //})
+        } catch (error) {
+            console.error("Login error: ", error);
+            toast.error("Could not login user. Please try again later.");
         }
     }
-
 
     const title = isLogin ? 'Login' : 'Sign Up';
 
@@ -60,9 +48,22 @@ export default function AuthForm({submitHandler, result}:
     
     const authMode = isLogin ? 'Create new account' : 'Login with existing account'
 
-    if (loading) return <p>Loading...</p> //TODO: replace with spinner component
+    if (loading) return <Spinner />
 
   return (
+    <>
+    <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+    />
     <section className={classes.auth}>
         <h1>{title}</h1>
         <h4>To create a new event, you need to login.</h4>
@@ -71,11 +72,11 @@ export default function AuthForm({submitHandler, result}:
         <form>
             <div className={classes.control}>
                 <label htmlFor='email'>Your Email</label>
-                <input type='email' id='email' required onChange={handleChange}/>
+                <input type='email' id='email' required ref={emailRef}/>
             </div>
             <div className={classes.control}>
                 <label htmlFor='password'>Your Password</label>
-                <input type='password' id='password' required onChange={handleChange}/>
+                <input type='password' id='password' required ref={passwordRef}/>
             </div>
             <div className={classes.actions}>
                 <Button onClick={onClickHandler}>{buttonText}</Button>
@@ -83,5 +84,6 @@ export default function AuthForm({submitHandler, result}:
             </div>
         </form>
     </section>
+    </>
   )
 }
