@@ -34,6 +34,7 @@ export default function AuthForm({submitHandler, result}:
             toast.success("Login successful!");
             router.push('/events');
         } catch (error) {
+            setLoading(false);
             console.error("Login error: ", error);
             toast.error("Could not login user. Please try again later.");
         }
