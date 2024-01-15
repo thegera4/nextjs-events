@@ -1,17 +1,24 @@
+"use client";
+//import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import classes from './MainHeader.module.css'
 import Button from '../ui/Button'
-import { cookies } from 'next/headers'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/store/AuthContext';
 
 export default function MainHeader() {
 
-  let userIsLoggedIn: boolean = false
+  const router = useRouter()
 
-  if(cookies().get('token')){
-    userIsLoggedIn = true
+  const { userIsLoggedIn, logout } = useAuth();
+
+  const logoutHandler = () => {
+    logout()
+    router.push('/')
   }
 
-
+  console.log(userIsLoggedIn)
+  
   return (
     <header className={classes.header}>
       <div className={classes.container}>
@@ -37,7 +44,7 @@ export default function MainHeader() {
             {
               userIsLoggedIn && 
               <li>
-                <Button /*onClick={logoutHandler}*/>Logout</Button>
+                <Button onClick={logoutHandler}>Logout</Button>
               </li>
             } 
           </ul>

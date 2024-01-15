@@ -4,19 +4,12 @@ import {useRouter} from 'next/navigation'
 import Button from '../../components/ui/Button'
 import classes from './AuthForm.module.css'
 import { TokenResponse } from '@/types'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from '../ui/Spinner';
+import { login, signup } from '@/utils/api-utils';
 
-/*
-{
-    "email": "test2@email.com",
-    "password": "test2"
-}
-*/
-
-export default function AuthForm({submitHandler, result}: 
-    {submitHandler: (emailRef: string, passwordRef: string) => Promise<TokenResponse>, result: TokenResponse}) {
+export default function AuthForm({result}: {result: TokenResponse}) {
     
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
@@ -27,22 +20,46 @@ export default function AuthForm({submitHandler, result}:
   
     const switchAuthModeHandler = () => setIsLogin((prevState) => !prevState)
 
+    async function submitHandler (emailRef: string, passwordRef: string) {
+        try{
+            let result = isLogin ? await login(emailRef, passwordRef) : await signup(emailRef, passwordRef);
+            if(isLogin){
+                const token = result.token;
+                localStorage.setItem('token', token);
+                return result;
+            } else {
+                toast.success("Account created successfully!");
+                setIsLogin(true);
+            }
+        } catch (error) {
+            console.error(error);
+            throw new Error("Could not login user.");
+        }
+            
+    }
+
     const onClickHandler = async () => {
         setLoading(true);
         try{
-            await submitHandler(emailRef.current?.value!, passwordRef.current?.value!);
-            toast.success("Login successful!");
-            router.push('/events');
+            const response = await submitHandler(emailRef.current?.value!, passwordRef.current?.value!);
+            if(isLogin){
+                if(response.token !== ''){
+                    router.push('/events');
+                    toast.success("Login successful!");
+                }
+            } else {
+                setIsLogin(true);
+                setLoading(false);
+            } 
         } catch (error) {
-            setLoading(false);
-            console.error("Login error: ", error);
             toast.error("Could not login user. Please try again later.");
+            setLoading(false);
         }
     }
 
     const title = isLogin ? 'Login' : 'Sign Up';
 
-    const message = isLogin ? 'If you do not have an account, please click on Create new account.' :
+    const message = isLogin ? 'If you want to create an account, please click on Create new account.' :
                               'If you already have an account, please click on Login with existing account.'
 
     const buttonText = isLogin ? 'Login' : 'Create Account'
@@ -53,23 +70,13 @@ export default function AuthForm({submitHandler, result}:
 
   return (
     <>
-    <ToastContainer
-        position="bottom-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-    />
     <section className={classes.auth}>
         <h1>{title}</h1>
-        <h4>To create a new event, you need to login.</h4>
+        <h4>To create a new event, you need to login. You can use this test account to login and use the app:</h4> 
+        <h4>Email: test2@email.com</h4> 
+        <h4>Password: test2 </h4>
         <h4>{message}</h4>
-        <h5>(You can use fake accounts for example abd@test.com) and a password of at least 6 characters</h5>
+        <h5>(You can register fake accounts for example abd@test.com) and a password of at least 6 characters</h5>
         <form>
             <div className={classes.control}>
                 <label htmlFor='email'>Your Email</label>
