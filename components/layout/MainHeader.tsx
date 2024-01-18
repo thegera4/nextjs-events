@@ -1,23 +1,14 @@
 "use client";
-//import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import classes from './MainHeader.module.css'
 import Button from '../ui/Button'
-import { useRouter } from 'next/navigation'
 import { useAuth } from '@/store/AuthContext';
 
 export default function MainHeader() {
 
-  const router = useRouter()
+  const { userIsLoggedIn, logoutAuthCtx } = useAuth();
 
-  const { userIsLoggedIn, logout } = useAuth();
-
-  const logoutHandler = () => {
-    logout()
-    router.push('/')
-  }
-
-  console.log(userIsLoggedIn)
+  const logoutHandler = () => logoutAuthCtx()
   
   return (
     <header className={classes.header}>

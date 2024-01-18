@@ -1,5 +1,5 @@
 "use client";
-import {useState, useRef} from 'react'
+import {useState, useRef, useContext} from 'react'
 import {useRouter} from 'next/navigation'
 import Button from '../../components/ui/Button'
 import classes from './AuthForm.module.css'
@@ -8,32 +8,34 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from '../ui/Spinner';
 import { login, signup } from '@/utils/api-utils';
+import { useAuth } from '@/store/AuthContext';
+
 
 export default function AuthForm({result}: {result: TokenResponse}) {
     
+    const { userIsLoggedIn, loginAuthCtx } = useAuth()
+
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
-    
+
     const router = useRouter();
   
     const switchAuthModeHandler = () => setIsLogin((prevState) => !prevState)
 
     async function submitHandler (emailRef: string, passwordRef: string) {
         try{
-            let result = isLogin ? await login(emailRef, passwordRef) : await signup(emailRef, passwordRef);
+            let result = isLogin ? await loginAuthCtx(emailRef, passwordRef) : await signup(emailRef, passwordRef);
+            console.log("resultado: ",result)
             if(isLogin){
-                const token = result.token;
-                localStorage.setItem('token', token);
                 return result;
             } else {
                 toast.success("Account created successfully!");
                 setIsLogin(true);
             }
         } catch (error) {
-            console.error(error);
-            throw new Error("Could not login user.");
+            toast.error("Could not login or create account. Please try again later.");
         }
             
     }

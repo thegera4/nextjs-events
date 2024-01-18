@@ -1,13 +1,24 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { login } from '@/utils/api-utils';
 
-const AuthContext = createContext({
-    userIsLoggedIn: false,
-    //login: () => {},
-    logout: () => {}
+interface AuthContextProps {
+  userIsLoggedIn: boolean;
+  loginAuthCtx: (email: string, password: string) => Promise<void>;
+  logoutAuthCtx: () => void;
+}
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+const AuthContext = createContext<AuthContextProps>({
+  userIsLoggedIn: false,
+  loginAuthCtx: async () => {},
+  logoutAuthCtx: () => {}
 });
 
-export const AuthProvider = ({ children }:any) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
 
@@ -16,20 +27,28 @@ export const AuthProvider = ({ children }:any) => {
     setUserIsLoggedIn(!!token);
   }, []);
 
-  const login = () => {
-    // Implement your login logic here
-    // Update the token in localStorage and setUserIsLoggedIn(true)
+  const loginAuthCtx = async (email: string, password: string) => {
+    try{
+      const response = await login(email, password);
+      if(response.token !== '' || response.token !== undefined || response.token !== null){
+        localStorage.setItem('token', response.token);
+        setUserIsLoggedIn(true);
+        return response;
+      }
+    } catch (error) {
+      throw new Error("Could not login user. Please try again later.");
+    }
   };
 
-  const logout = () => {
+  const logoutAuthCtx = () => {
     localStorage.removeItem('token');
     setUserIsLoggedIn(false);
   };
 
   const contextValue = {
     userIsLoggedIn,
-    login,
-    logout
+    loginAuthCtx,
+    logoutAuthCtx
   };
 
   return (
