@@ -4,6 +4,7 @@ import { getAllEvents } from "@/utils/api-utils";
 import EventItem from "./EventItem";
 import { Event } from "@/types"
 import classes from './EventsList.module.css'
+import { toast } from "react-toastify";
 
 export default function EventsList() {
 
@@ -12,7 +13,7 @@ export default function EventsList() {
     useEffect(() => {
         getAllEvents()
         .then((events) => setEvents(events))
-        .catch((error) => console.error(error))
+        .catch((_) => toast.error("Error loading events. Try again later."))
     }, [])
 
     return (

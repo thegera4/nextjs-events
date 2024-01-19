@@ -33,3 +33,11 @@ export async function signup(email: string, password: string) {
     }
     return response.json();
 }
+
+export async function getSingleEvent(eventID: string) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${eventID}`);
+    if (!response.ok) {
+        throw new Error("Could not fetch event.");
+    }
+    return response.json();
+}

@@ -1,27 +1,24 @@
 "use client";
-import {useState, useRef, useContext} from 'react'
+import {useState, useRef} from 'react'
 import {useRouter} from 'next/navigation'
 import Button from '../../components/ui/Button'
 import classes from './AuthForm.module.css'
-import { TokenResponse } from '@/types'
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Spinner from '../ui/Spinner';
-import { login, signup } from '@/utils/api-utils';
+import { signup } from '@/utils/api-utils';
 import { useAuth } from '@/store/AuthContext';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function AuthForm({result}: {result: TokenResponse}) {
+export default function AuthForm() {
     
-    const { userIsLoggedIn, loginAuthCtx } = useAuth()
-
+    const router = useRouter();
+    const { loginAuthCtx } = useAuth()
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
 
-    const router = useRouter();
-  
     const switchAuthModeHandler = () => setIsLogin((prevState) => !prevState)
 
     async function submitHandler (emailRef: string, passwordRef: string) {
