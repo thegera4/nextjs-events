@@ -12,7 +12,7 @@ export default function EventDetailsPage({params}: {params: any}) {
         <EventSummary eventID={eventID} />
         <EventLogistics eventID={eventID} />
         <EventContent eventID={eventID} />
-        <Comments eventID={eventID} />
+        {/*<Comments eventID={eventID} />*/}
     </article>
 
   )
