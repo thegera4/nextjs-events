@@ -1,8 +1,13 @@
 "use client";
 import React, { useRef, useState } from 'react';
 import classes from './NewComment.module.css';
+import { Comment } from '@/types';
 
-function NewComment(props: any) {
+interface NewCommentProps {
+  onAddComment: (commentData: Comment) => void;
+}
+
+function NewComment(props: NewCommentProps) {
   const [isInvalid, setIsInvalid] = useState(false);
 
   const emailInputRef = useRef<HTMLInputElement>(null);

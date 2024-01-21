@@ -1,10 +1,10 @@
 "use client";
-import { useState, useEffect, useContext } from 'react';
-
+import { useState, useEffect } from 'react';
 import CommentList from './CommentList';
 import NewComment from './NewComment';
 import classes from './Comments.module.css';
 import { toast } from 'react-toastify';
+import { Comment } from '@/types';
 
 function Comments({eventID}: {eventID: string}) {
 
@@ -28,7 +28,7 @@ function Comments({eventID}: {eventID: string}) {
     setShowComments((prevStatus) => !prevStatus);
   }
 
-  function addCommentHandler(commentData: any) {
+  function addCommentHandler(commentData: Comment) {
 
     fetch('/api/comments/' + eventID, {
       method: 'POST',
@@ -54,7 +54,6 @@ function Comments({eventID}: {eventID: string}) {
 
   }
 
-  console.log(comments)
   return (
     <section className={classes.comments}>
       <button type="button" onClick={toggleCommentsHandler}>

@@ -20,3 +20,9 @@ export type NotificationData = {
     message: string;
     status: string;
 }
+
+export type Comment = {
+    email: string;
+    name: string;
+    comment: string
+}

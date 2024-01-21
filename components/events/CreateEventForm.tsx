@@ -4,7 +4,7 @@ import Button from '../ui/Button';
 import Card from '../ui/Card';
 import classes from './CreateEventForm.module.css';
 
-function CreateEventForm(props: any) {
+function CreateEventForm() {
   const [eventData, setEventData] = useState({
     title: '',
     image: '',
@@ -17,7 +17,7 @@ function CreateEventForm(props: any) {
 
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    props.addEvent(eventData)
+    //props.addEvent(eventData)
   }
 
   console.log(eventData);

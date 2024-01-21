@@ -1,11 +1,11 @@
 import EventSummary from "@/components/event-detail/EventSummary"
 import EventLogistics from "@/components/event-detail/EventLogistics"
 import EventContent from "@/components/event-detail/EventContent"
-import Comments from "@/components/input/Comments"
+//import Comments from "@/components/input/Comments"
 
-export default function EventDetailsPage({params}: {params: any}) {
+export default function EventDetailsPage(params: { eventSlug: string }) {
 
-    const eventID: string = params.eventSlug
+    const eventID = params.eventSlug
 
   return (
     <article>
