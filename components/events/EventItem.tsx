@@ -7,38 +7,35 @@ import Image from 'next/image'
 import classes from './EventItem.module.css'
 
 export default function EventItem(props: Event) {
-    const { Title, DateTime, Description, ID } = props //Image, Location 
+    
+  const { Title, Date, ImageURL, ID, Location } = props   
+  
+  const formattedDate = Date.split('T')[0]
 
-    const humanReadableDate = new Date(DateTime).toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    })
+  const shownImage = ImageURL ? ImageURL : '/images/placeholder.jpg'
   
-    //const formattedAddress = location.replace(', ', '\n')
-  
-    return (
-      <li className={classes.item}>
-        <Image src="/images/coding-event.jpg" alt={Title} width={250} height={160} />
-        <div className={classes.content}>
-          <div className={classes.summary}>
-            <h2>{Title}</h2>
-            <div className={classes.date}>
-              <DateIcon />
-              <time>{humanReadableDate}</time>
-            </div>
-            <div className={classes.address}>
-              <AddressIcon />
-              <address>{"Address 123"/*formattedAddress*/}</address>
-            </div>
+  return (
+    <li className={classes.item}>
+      <Image src={shownImage} alt={Title} width={250} height={160} />
+      <div className={classes.content}>
+        <div className={classes.summary}>
+          <h2>{Title}</h2>
+          <div className={classes.date}>
+            <DateIcon />
+            <time>{formattedDate}</time>
           </div>
-          <div className={classes.actions}>
-            <Button link={`/events/${ID}`}>
-              <span>Explore Event</span>
-              <span className={classes.icon}><ArrowRightIcon /></span>
-            </Button>
+          <div className={classes.address}>
+            <AddressIcon />
+            <address>{Location}</address>
           </div>
         </div>
-      </li>
-    )
+        <div className={classes.actions}>
+          <Button link={`/events/${ID}`}>
+            <span>Explore Event</span>
+            <span className={classes.icon}><ArrowRightIcon /></span>
+          </Button>
+        </div>
+      </div>
+    </li>
+  )
 }

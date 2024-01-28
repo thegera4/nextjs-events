@@ -16,6 +16,8 @@ export default function EventsList() {
         .catch((_) => toast.error("Error loading events. Try again later."))
     }, [])
 
+    console.log(events)
+
     return (
         <ul className={classes.list}>
             { events?.map((event) => (
@@ -23,8 +25,9 @@ export default function EventsList() {
                     key={event.ID}
                     ID={event.ID}
                     Title={event.Title}
-                    //location={event.location}
-                    DateTime={event.DateTime} 
+                    Location={event.Location}
+                    Date={event.Date} 
+                    ImageURL={event.ImageURL}
                     Description={event.Description} 
                     UserId={event.UserId}
                 />

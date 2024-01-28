@@ -6,7 +6,9 @@ export type Event = {
     ID: number;
     Title: string;
     Description: string;
-    DateTime: string;
+    Location: string;
+    Date: string;
+    ImageURL?: string;
     UserId: number;
 }
 

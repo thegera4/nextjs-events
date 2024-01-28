@@ -24,7 +24,6 @@ export default function AuthForm() {
     async function submitHandler (emailRef: string, passwordRef: string) {
         try{
             let result = isLogin ? await loginAuthCtx(emailRef, passwordRef) : await signup(emailRef, passwordRef);
-            console.log("resultado: ",result)
             if(isLogin){
                 return result;
             } else {

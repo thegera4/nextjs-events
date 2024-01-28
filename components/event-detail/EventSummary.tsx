@@ -1,15 +1,9 @@
-import { getSingleEvent } from '@/utils/api-utils';
 import classes from './EventSummary.module.css';
 
-async function EventSummary({eventID}: {eventID: string}) {
-  
-    const eventDetails = await getSingleEvent(eventID)
-
+export default function EventSummary({Title}: {Title: string}) { 
   return (
     <section className={classes.summary}>
-      <h1>{eventDetails.Title}</h1>
+      <h1>{Title}</h1>
     </section>
   );
 }
-
-export default EventSummary;

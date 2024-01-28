@@ -32,6 +32,8 @@ function CreateEventForm() {
     }
   }
 
+  console.log(eventData)
+
   return (
     <Card>
       <form className={classes.form}>
@@ -52,8 +54,8 @@ function CreateEventForm() {
           <label htmlFor='image'>Image URL:</label>
           <input 
             type='url' 
-            required 
             id='image' 
+            placeholder='Optional...'
             value={eventData.ImageURL} 
             onChange={(event) => setEventData({
               ...eventData,
