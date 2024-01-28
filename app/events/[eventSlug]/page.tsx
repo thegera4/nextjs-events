@@ -3,9 +3,9 @@ import EventLogistics from "@/components/event-detail/EventLogistics"
 import EventContent from "@/components/event-detail/EventContent"
 //import Comments from "@/components/input/Comments"
 
-export default function EventDetailsPage(params: { eventSlug: string }) {
+export default function EventDetailsPage(params: { params: { eventSlug: string } }) {
 
-    const eventID = params.eventSlug
+  const eventID = params.params.eventSlug
 
   return (
     <article>

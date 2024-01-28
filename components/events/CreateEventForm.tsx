@@ -1,30 +1,40 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
 import classes from './CreateEventForm.module.css';
+import { createEvent } from '@/utils/api-utils';
+import { EventData } from '@/types';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 function CreateEventForm() {
-  const [eventData, setEventData] = useState({
+
+  const router = useRouter();
+  const [eventData, setEventData] = useState<EventData>({
     title: '',
-    image: '',
+    ImageURL: '',
     location: '',
     date: '',
     description: '',
-    isFeatured: false
+    //isFeatured: false
   });
 
 
-  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+  async function submitHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    //props.addEvent(eventData)
+    try {
+      const response = await createEvent(eventData);
+      toast.success(response.status)
+      router.push('/events');
+    } catch (error) {
+      toast.error('Something went wrong! Please try again.');
+    }
   }
-
-  console.log(eventData);
 
   return (
     <Card>
-      <form className={classes.form} onSubmit={submitHandler}>
+      <form className={classes.form}>
         <div className={classes.control}>
           <label htmlFor='title'>Event Title</label>
           <input 
@@ -44,10 +54,10 @@ function CreateEventForm() {
             type='url' 
             required 
             id='image' 
-            value={eventData.image} 
+            value={eventData.ImageURL} 
             onChange={(event) => setEventData({
               ...eventData,
-              image: event.target.value
+              ImageURL: event.target.value
             })}
           />
         </div>
@@ -91,7 +101,7 @@ function CreateEventForm() {
           ></textarea>
         </div>
         <div className={classes.actions}>
-          <Button>Add Event</Button>
+          <Button onClick={(event: any) => submitHandler(event)}>Add Event</Button>
         </div>
       </form>
     </Card>

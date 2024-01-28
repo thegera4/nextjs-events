@@ -26,3 +26,11 @@ export type Comment = {
     name: string;
     comment: string
 }
+
+export type EventData = {
+    title: string;
+    description: string;
+    date: string;
+    location: string;
+    ImageURL?: string;
+}
