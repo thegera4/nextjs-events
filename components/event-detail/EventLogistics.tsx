@@ -7,17 +7,22 @@ import { getSingleEvent } from '@/utils/api-utils';
 
 async function EventLogistics({eventID}: {eventID: string}) {
   const eventDetails = await getSingleEvent(eventID)
-
-  const humanReadableDate = new Date(eventDetails.DateTime).toLocaleDateString('en-US', {
+  const humanReadableDate = new Date(eventDetails.Date).toLocaleDateString('en-US', {
     day: 'numeric',
     month: 'long',
-    year: 'numeric',
+    year: 'numeric'
   });
+  const shownImage = eventDetails.ImageURL || "/images/placeholder.jpg";
 
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>
-        <Image src={"/images/coding-event.jpg"} alt={"City picture"} width={400} height={400}/>
+        <Image 
+          src={shownImage} 
+          alt={"City picture"} 
+          width={500} 
+          height={400}
+        />
       </div>
       <ul className={classes.list}>
         <LogisticsItem icon={DateIcon}>

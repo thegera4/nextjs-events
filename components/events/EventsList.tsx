@@ -16,8 +16,6 @@ export default function EventsList() {
         .catch((_) => toast.error("Error loading events. Try again later."))
     }, [])
 
-    console.log(events)
-
     return (
         <ul className={classes.list}>
             { events?.map((event) => (

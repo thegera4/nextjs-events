@@ -3,7 +3,7 @@
     border-radius: 6px;
     background-color: #2b2b2b;
     padding: 2rem;
-    max-width: 50rem;
+    max-width: 60rem;
     width: 80%;
     margin: -3rem auto;
     color: #d5eeeb;
@@ -35,10 +35,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-  }
-  
-  .logistics address {
-    white-space: pre;
   }
   
   @media (min-width: 768px) {
