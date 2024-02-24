@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { FormEvent, MouseEventHandler } from 'react'
-import classes from './button.module.css'
+import classes from './Button.module.css'
 
 interface ButtonProps {
   link?: string
