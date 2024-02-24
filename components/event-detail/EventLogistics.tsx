@@ -9,7 +9,7 @@ import LogisticsItem from './LogisticsItem';
 import classes from './EventLogistics.module.css';
 import Image from 'next/image';
 
-enum Months {
+export enum Months {
   January = 1,
   February = 2,
   March = 3,

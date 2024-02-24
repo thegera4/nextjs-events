@@ -1,12 +1,9 @@
-import EventsList from "@/components/events/EventsList";
-import Search from "@/components/events/Search";
+import ClientContainer from "@/components/events/ClientContainer";
 
 export default function Events() {
-
     return (
         <main>
-            <Search />
-            <EventsList />
+            <ClientContainer />
         </main>
     )
 }
