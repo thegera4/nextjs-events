@@ -1,0 +1,10 @@
+.alignment {
+    max-width: 700px;
+    margin-left: -8.7rem;
+ }
+ 
+ @media (max-width: 700px) {
+    .alignment {
+       margin-left: -4.5rem;
+    }
+ }

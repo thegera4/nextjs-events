@@ -1,0 +1,10 @@
+.techStack {
+   max-width: 700px;
+   margin-left: -3.7rem;
+}
+
+@media (max-width: 700px) {
+   .techStack {
+      margin-left: 0;
+   }
+}
