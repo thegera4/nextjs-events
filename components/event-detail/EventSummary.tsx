@@ -2,7 +2,7 @@
 import React from 'react';
 import useFetch from '@/hooks/useFetch';
 import { Event } from '@/types';
-import { GET_ALL_EVENTS_URL } from '../events/EventsList';
+import { GET_ALL_EVENTS_URL } from '../events/ClientContainer';
 import classes from './EventSummary.module.css';
 
 export default function EventSummary({eventID}: {eventID: string}) { 

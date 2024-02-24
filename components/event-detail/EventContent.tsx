@@ -1,7 +1,7 @@
 "use client";
 import useFetch from '@/hooks/useFetch';
 import { Event } from '@/types';
-import { GET_ALL_EVENTS_URL } from '../events/EventsList';
+import { GET_ALL_EVENTS_URL } from '../events/ClientContainer';
 import classes from './EventContent.module.css';
 
 export default function EventContent({eventID}: {eventID: string}) {

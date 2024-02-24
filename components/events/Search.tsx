@@ -6,8 +6,7 @@ import classes from './Search.module.css'
 type SetFilterType = (filter: boolean) => void
 type SetQueryParamsType = (queryParams: { year: string, month: string }) => void
 
-export default function Search({ filter, setFilter, setQueryParams } : 
-  { filter: boolean, setFilter: SetFilterType, setQueryParams: SetQueryParamsType }){
+export default function Search({setFilter, setQueryParams} : {setFilter: SetFilterType, setQueryParams: SetQueryParamsType}){
 
   const yearInputRef = useRef<HTMLSelectElement>(null)
   const monthInputRef = useRef<HTMLSelectElement>(null)
@@ -19,8 +18,6 @@ export default function Search({ filter, setFilter, setQueryParams } :
     setQueryParams({ year: selectedYear, month: selectedMonth })
     setFilter(true)
   }
-
-  console.log('filter', filter)
 
   return (
     <form className={classes.form}>

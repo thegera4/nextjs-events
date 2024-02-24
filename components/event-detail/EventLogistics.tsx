@@ -1,7 +1,7 @@
 "use client";
 import useFetch from '@/hooks/useFetch';
 import { Event } from '@/types';
-import { GET_ALL_EVENTS_URL } from '../events/EventsList';
+import { GET_ALL_EVENTS_URL } from '../events/ClientContainer';
 import Spinner from '../ui/Spinner';
 import AddressIcon from '../icons/AddressIcon'
 import DateIcon from '../icons/DateIcon';
