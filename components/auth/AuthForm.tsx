@@ -71,8 +71,8 @@ export default function AuthForm() {
     <section className={classes.auth}>
         <h1>{title}</h1>
         <h4>To create a new event, you need to login. You can use this test account to login and use the app:</h4> 
-        <h4>Email: test2@email.com</h4> 
-        <h4>Password: test2 </h4>
+        <h4>Email: test1@email.com</h4> 
+        <h4>Password: test1 </h4>
         <h4>{message}</h4>
         <h5>(You can register fake accounts for example abd@test.com) and a password of at least 6 characters</h5>
         <form>
