@@ -34,7 +34,7 @@ const filterEvents = (year: string, month: string, setFilteredEvents: (data: Eve
 
 export default function ClientContainer() {
   // custom hook to fetch events data from the server
-  const { data: events, loading, error } = useFetch<Event[]>(`${GET_ALL_EVENTS_URL}/events`);
+  const { data: events, loading, error } = useFetch<Event[]>(`${GET_ALL_EVENTS_URL}/events`); //check this value
 
   // effect to save the events data during component mount
   useEffect(() => { events && setEventsData(events); }, [events]);
