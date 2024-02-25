@@ -1,6 +1,7 @@
 # GoNext Events
 
-This is the front end for my full stack application "GoNext Events". You can check the page at: <a href="https://nextjs-events-lovat.vercel.app/" target="_blank">https://nextjs-events-lovat.vercel.app/</a>
+This is the front end for my full stack application "GoNext Events". 
+You can check the page at: <a href="https://nextjs-events-lovat.vercel.app/" target="_blank">https://nextjs-events-lovat.vercel.app/</a>
 
 ## Home Page
 You will find the instructions on how to use the app, the tech stack used in this project, and the link to the API documentation.
