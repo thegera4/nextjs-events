@@ -1,7 +1,10 @@
 # GoNext Events
 
 This is the front end for my full stack application "GoNext Events". 
-You can check the page at: <a href="https://nextjs-events-lovat.vercel.app/" target="_blank">https://nextjs-events-lovat.vercel.app/</a>
+
+You can check the deployed web app at: <a href="https://nextjs-events-lovat.vercel.app/" target="_blank">https://nextjs-events-lovat.vercel.app/</a>
+
+To see the backend (API) code check this repo: <a href="https://github.com/thegera4/events-rest-api" target="_blank">https://github.com/thegera4/events-rest-api</a>
 
 ## Home Page
 You will find the instructions on how to use the app, the tech stack used in this project, and the link to the API documentation.
