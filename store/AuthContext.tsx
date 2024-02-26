@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const response = await login(email, password);
       if(response.token !== '' || response.token !== undefined || response.token !== null){
         localStorage.setItem('token', response.token);
+        localStorage.setItem('id', response.id);
         setUserIsLoggedIn(true);
         return response;
       }
@@ -42,6 +43,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logoutAuthCtx = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
     setUserIsLoggedIn(false);
   };
 

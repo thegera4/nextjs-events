@@ -9,7 +9,7 @@ export type Event = {
     Location: string;
     Date: string;
     ImageURL?: string;
-    UserId: number;
+    UserID: number;
 }
 
 export type TokenResponse = {

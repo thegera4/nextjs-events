@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useFetch from '@/hooks/useFetch';
 import { Event } from '@/types';
 import { GET_ALL_EVENTS_URL } from '../events/ClientContainer';
@@ -31,17 +31,31 @@ export enum Months {
 export default function EventLogistics({eventID}: {eventID: string}) {
 
   const router = useRouter();
+  const userId = localStorage.getItem('id');
+  const [eventDetails, setEventDetails] = useState<Event>();
   const [userIsCreator, setUserIsCreator] = useState<boolean>(false);
-
   const { data: events, error } = useFetch<Event[]>(`${GET_ALL_EVENTS_URL}/events`);
+
+  // set the 'eventDetails' state when the events are fetched
+  useEffect(() => {
+    if (events) {
+      const event = events.find(event => event.ID === parseInt(eventID));
+      setEventDetails(event!);
+    }
+  }, [events, eventID, eventDetails])
+
+  // once theere is a value for 'eventDetails', check if the user is the creator of the event
+  useEffect(() => {
+    if (eventDetails) {
+      parseInt(userId!) === eventDetails.UserID && setUserIsCreator(true);
+    }
+  }, [eventDetails, userId, setUserIsCreator])
+
   if (error) return <div>Failed to load</div>
   if (!events) return <Spinner />
-
-  const eventDetails = events.find(event => event.ID === parseInt(eventID));
   if (!eventDetails) return <div>Event not found</div>
 
   const dateParts = eventDetails.Date.split(/[-T:Z]/).slice(0, 3);
-
   const year = dateParts[0];
   const month = Months[parseInt(dateParts[1])];
   const day = dateParts[2];
@@ -74,25 +88,6 @@ export default function EventLogistics({eventID}: {eventID: string}) {
     }
   }
 
-  // function to check if the user is the creator of the event, by comparing the user's ID with the event's creator ID
-  async function checkUserIsCreator() {
-
-    const token = localStorage.getItem('token');
-    if (!token) return;
-
-    const response = await fetch(`${GET_ALL_EVENTS_URL}/events/${eventID}`, {
-      headers: { 'Authorization': `${token}`}
-    });
-    if (!response.ok) {
-      throw new Error("Failed to check if user is creator");
-    }
-    const data = await response.json();
-    if (data.CreatorID === localStorage.getItem('userID')) {
-      setUserIsCreator(true);
-    }
-    
-  }
-
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>
@@ -105,7 +100,7 @@ export default function EventLogistics({eventID}: {eventID: string}) {
         <LogisticsItem icon={AddressIcon}>
           <address>{eventDetails.Location}</address>
         </LogisticsItem>
-        <Button onClick={deleteEventHandler} color="delete"> Delete Event </Button>
+        { userIsCreator && <Button onClick={deleteEventHandler} color="delete"> Delete Event </Button> }
       </ul>
     </section>
   );
