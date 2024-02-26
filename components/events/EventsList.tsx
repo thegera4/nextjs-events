@@ -16,7 +16,7 @@ export default function EventsList({ events } : { events: Event[] }) {
                     Date={event.Date} 
                     ImageURL={event.ImageURL}
                     Description={event.Description} 
-                    UserId={event.UserId}
+                    UserID={event.UserID}
                 />
             ))}
         </ul>
