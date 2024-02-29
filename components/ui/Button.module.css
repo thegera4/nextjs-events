@@ -35,3 +35,22 @@
   background-color: #ff0044b4;
   border-color: #ff0044b4;
 }
+
+.edit {
+  text-decoration: none;
+  cursor: pointer;
+  font: inherit;
+  border-radius: 6px;
+  color: #dafff7;
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  background-color: #0099ff;
+  border-color: #0099ff;
+}
+
+.edit:hover,
+.edit:active {
+  background-color: #0088ffb4;
+  border-color: #0088ffb4;
+}

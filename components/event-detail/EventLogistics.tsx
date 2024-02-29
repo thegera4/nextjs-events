@@ -32,6 +32,7 @@ export default function EventLogistics({eventID}: {eventID: string}) {
 
   const router = useRouter();
   const userId = localStorage.getItem('id');
+  const token = localStorage.getItem('token');
   const [eventDetails, setEventDetails] = useState<Event>();
   const [userIsCreator, setUserIsCreator] = useState<boolean>(false);
   const { data: events, error } = useFetch<Event[]>(`${GET_ALL_EVENTS_URL}/events`);
@@ -65,13 +66,10 @@ export default function EventLogistics({eventID}: {eventID: string}) {
 
   // function to delete an event when the "Delete Event" button is clicked
   async function deleteEventHandler() {
-    const token = localStorage.getItem('token');
-    
     if (!token) {
       toast.error("You need to be logged in to delete an event");
       return;
     }
-
     try{
       const response = await fetch(`${GET_ALL_EVENTS_URL}/events/${eventID}`, {
         method: 'DELETE',
@@ -88,6 +86,11 @@ export default function EventLogistics({eventID}: {eventID: string}) {
     }
   }
 
+  // function to edit an event when the "Edit Event" button is clicked
+  async function editEventHandler() {
+    router.push(`/events/${eventID}/edit`);
+  }
+
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>
@@ -100,7 +103,10 @@ export default function EventLogistics({eventID}: {eventID: string}) {
         <LogisticsItem icon={AddressIcon}>
           <address>{eventDetails.Location}</address>
         </LogisticsItem>
-        { userIsCreator && <Button onClick={deleteEventHandler} color="delete"> Delete Event </Button> }
+        <div className={classes.controls}>
+          { userIsCreator && <Button onClick={deleteEventHandler} color="delete"> Delete Event </Button> }
+          { userIsCreator && <Button onClick={editEventHandler} color="edit"> Edit Event </Button> }
+        </div>
       </ul>
     </section>
   );

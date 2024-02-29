@@ -11,14 +11,26 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = (props) => {
 
-  const isDeleteBtn = props.color === 'delete'
+  let btnColorStyle: string;
+
+  switch (props.color) {
+    case "delete":
+      btnColorStyle = classes.delete;
+      break;
+    case "edit":
+      btnColorStyle = classes.edit;
+      break;
+    default:
+      btnColorStyle = classes.btn;
+      break;
+  }
 
   return props.link ?
-    ( <Link href={props.link} className={isDeleteBtn ? classes.delete : classes.btn}>{props.children}</Link> ) :
+    ( <Link href={props.link} className={btnColorStyle}>{props.children}</Link> ) :
     ( <button 
         type='button' 
         onClick={ props.onClick as MouseEventHandler<HTMLButtonElement> } 
-        className={ isDeleteBtn ? classes.delete : classes.btn }
+        className={ btnColorStyle }
       >
         {props.children}
       </button> 
