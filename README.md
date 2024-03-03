@@ -22,6 +22,7 @@ You will find a list of all the events coming from the database as well as the s
 ![image](https://github.com/thegera4/nextjs-events/assets/84020433/6a8c9f3e-2344-48d2-a8ea-bbb9dd5b272a)
 
 ## Events Details Page
-If you click on the "Explore Event" button of each event card, you will see the details page of each event. A "Delete Button" allows you to delete the event, only if you are logged in and you are the user that created the event.
+If you click on the "Explore Event" button of each event card, you will see the details page of each event. A "Delete Button" allows you to delete the event while the "Edit Event" button allows you to update the event details, only if you are logged in and you are the user that created the event.
 
-![image](https://github.com/thegera4/nextjs-events/assets/84020433/babc7111-5266-4d9c-8de8-7d4a27b2c59d)
+![image](https://github.com/thegera4/nextjs-events/assets/84020433/047a7445-cbb9-40b9-8454-75c724f333ad)
+
