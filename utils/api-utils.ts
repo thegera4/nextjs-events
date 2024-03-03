@@ -64,3 +64,21 @@ export async function createEvent(eventData: EventData) {
         console.error(error);
     }
 }
+
+export async function updateEvent(eventID: string | string[], eventData: EventData) {
+    const token = localStorage.getItem("token");
+    const headers = {
+        "Content-Type": "application/json",
+        ...(token && { "Authorization": token }),
+    };
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${eventID}`, {
+            method: "PUT",
+            body: JSON.stringify(eventData),
+            headers,
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+}

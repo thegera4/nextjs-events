@@ -12,11 +12,11 @@ function CreateEventForm() {
 
   const router = useRouter();
   const [eventData, setEventData] = useState<EventData>({
-    title: '',
+    Title: '',
     ImageURL: '',
-    location: '',
-    date: '',
-    description: '',
+    Location: '',
+    Date: '',
+    Description: '',
     //isFeatured: false
   });
 
@@ -25,7 +25,7 @@ function CreateEventForm() {
     event.preventDefault();
     try {
       const response = await createEvent(eventData);
-      toast.success(response.status)
+      toast.success("Event Created Successfully!")
       router.push('/events');
     } catch (error) {
       toast.error('Something went wrong! Please try again.');
@@ -43,10 +43,10 @@ function CreateEventForm() {
             type='text' 
             required 
             id='title' 
-            value={eventData.title}
+            value={eventData.Title}
             onChange={(event) => setEventData({
                 ...eventData,
-                title: event.target.value
+                Title: event.target.value
             })}
           />
         </div>
@@ -69,10 +69,10 @@ function CreateEventForm() {
             type='text' 
             required 
             id='address' 
-            value={eventData.location} 
+            value={eventData.Location} 
             onChange={(event) => setEventData({
               ...eventData,
-              location: event.target.value
+              Location: event.target.value
             })}
           />
         </div>
@@ -82,10 +82,10 @@ function CreateEventForm() {
             type='date' 
             required 
             id='date' 
-            value={eventData.date} 
+            value={eventData.Date} 
             onChange={(event) => setEventData({
               ...eventData,
-              date: event.target.value
+              Date: event.target.value
             })}
           />
         </div>
@@ -95,10 +95,10 @@ function CreateEventForm() {
             id='description'
             required
             rows={5}
-            value={eventData.description}
+            value={eventData.Description}
             onChange={(event) => setEventData({
               ...eventData,
-              description: event.target.value
+              Description: event.target.value
             })}
           ></textarea>
         </div>

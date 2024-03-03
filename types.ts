@@ -30,9 +30,9 @@ export type Comment = {
 }
 
 export type EventData = {
-    title: string;
-    description: string;
-    date: string;
-    location: string;
+    Title: string;
+    Description: string;
+    Date: string;
+    Location: string;
     ImageURL?: string;
 }

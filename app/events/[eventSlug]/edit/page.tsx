@@ -1,5 +1,9 @@
+import EditEventForm from "@/components/events/EditEventForm";
+
 export default function EditPage() {
   return (
-    <div>Edit page here</div>
+    <main>
+      <EditEventForm />
+    </main>
   )
 }

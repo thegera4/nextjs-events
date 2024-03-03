@@ -48,6 +48,13 @@ export default function WelcomeInstructions() {
                 This button will only be visible if you are the creator of the event.
                 </p>
             </li>
+            <li>
+                <p>
+                <strong>EDIT EVENTS: </strong> 
+                If you are logged in, you will see a <strong>Edit Event</strong> button in the details page. 
+                This button will only be visible if you are the creator of the event.
+                </p>
+            </li>
         </ul>
     </section>
   )
